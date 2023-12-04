@@ -1,0 +1,28 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "stock_scan_parser.iml": true,
+        "README.md": true,
+        "pubspec.lock": true,
+        "analysis_options.yaml": true,
+        ".metadata": true,
+        ".vscode": true,
+        ".idea": true,
+        ".dart_tool": true
+    },
+    "hide-files.files": [
+        "stock_scan_parser.iml",
+        "README.md",
+        "pubspec.lock",
+        "analysis_options.yaml",
+        ".metadata",
+        ".vscode",
+        ".idea",
+        ".dart_tool"
+    ]
+}
