@@ -8,7 +8,7 @@ class FetchStockDataSource {
   Future<dynamic> fetchStockScan() async {
     try {
       final result = await _client.get(Uri.parse(''), headers: {});
-      return "";
+      return result;
     } catch (e) {
       rethrow;
     }

@@ -12,7 +12,7 @@ class FetchStockScanRepoImpl extends FetchStockScanRepo {
   Future<Either<dynamic, dynamic>> fetchStockScan() async {
     try {
       final result = await _fetchStockDataSource.fetchStockScan();
-      return left('');
+      return left(result);
     } catch (e) {
       throw '';
     }
