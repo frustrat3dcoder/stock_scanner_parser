@@ -1,10 +1,15 @@
 import 'package:http/http.dart' as http;
 
-class FetchStockDataSource {
+abstract class FetchStockDataRemote {
+  Future<dynamic> fetchStockScan();
+}
+
+class FetchStockDataRemoteSource extends FetchStockDataRemote {
   final http.Client _client;
 
-  FetchStockDataSource({required http.Client client}) : _client = client;
+  FetchStockDataRemoteSource({required http.Client client}) : _client = client;
 
+  @override
   Future<dynamic> fetchStockScan() async {
     try {
       final result = await _client.get(Uri.parse(''), headers: {});
