@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
 
-abstract class FetchStockScan {
+abstract class FetchStockScanRepo {
   Future<Either<dynamic, dynamic>> fetchStockScan();
 }
