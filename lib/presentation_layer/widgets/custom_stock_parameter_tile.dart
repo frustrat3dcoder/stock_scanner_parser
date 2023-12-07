@@ -81,23 +81,27 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
   Widget build(BuildContext context) {
     // This is the core logic where StringSpanList and variable key value is
     // responsible for showing widget in highlighted so that it can be edited
-    return Row(
-      children: stringSpanList
-          .map((e) =>
-              stockScanEntity.criteria![widget.index].variable!.containsKey(e)
-                  ? GestureDetector(
-                      onTap: () => openBottomSheet(context, e),
-                      child: RichText(
-                        text: TextSpan(
-                            text: "(${e.replaceAll('\$', '')}) ",
-                            style: const TextStyle(color: Colors.blue)),
-                      ),
-                    )
-                  : Text(
-                      "$e ",
-                      style: const TextStyle(color: Colors.white),
-                    ))
-          .toList(),
+    return ListTile(
+      minLeadingWidth: 0,
+      title: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.end,
+        children: stringSpanList
+            .map((e) =>
+                stockScanEntity.criteria![widget.index].variable!.containsKey(e)
+                    ? GestureDetector(
+                        onTap: () => openBottomSheet(context, e),
+                        child: RichText(
+                          text: TextSpan(
+                              text: "(${e.replaceAll('\$', '')}) ",
+                              style: const TextStyle(color: Colors.blue)),
+                        ),
+                      )
+                    : Text(
+                        "$e ",
+                        style: const TextStyle(color: Colors.white),
+                      ))
+            .toList(),
+      ),
     );
   }
 

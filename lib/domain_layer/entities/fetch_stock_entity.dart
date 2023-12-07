@@ -53,5 +53,5 @@ class CriteriaEntity extends Equatable {
       {'type': type, 'text': text, 'variable': 'variable'};
 
   @override
-  List<Object?> get props => [type, text];
+  List<Object?> get props => [type, text, variable];
 }

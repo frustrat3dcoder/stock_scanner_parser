@@ -21,9 +21,6 @@ class StockScanModel extends StockScanEntity with EquatableMixin {
                 CriteriaModel.fromJson(e as Map<String, dynamic>))
             .toList());
   }
-
-  @override
-  List<Object?> get props => [id, name, tag, color, criteria];
 }
 
 class CriteriaModel extends CriteriaEntity with EquatableMixin {
@@ -40,7 +37,4 @@ class CriteriaModel extends CriteriaEntity with EquatableMixin {
       variable: json['variable'] as Map<String, dynamic>? ?? {},
     );
   }
-
-  @override
-  List<Object?> get props => [type, text, variable];
 }

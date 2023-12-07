@@ -9,7 +9,8 @@ final sl = GetIt.I;
 
 Future<void> init() async {
   // ! data layer
-  sl.registerFactory<FetchStockDataLocal>(() => FetchStockLocalDataSource());
+  // sl.registerFactory<FetchStockDataLocal>(
+  //     () => HiveFetchStockScanLocalDataSource());
   sl.registerFactory<FetchStockDataRemote>(
       () => FetchStockDataRemoteSource(client: sl()));
 
