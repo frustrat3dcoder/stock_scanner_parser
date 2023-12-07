@@ -93,7 +93,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
   }
 
   void openBottomSheet(BuildContext context, String key) {
-    GlobalKey<FormState> _formFieldKey = GlobalKey();
+    GlobalKey<FormState> formFieldKey = GlobalKey();
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -105,7 +105,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
                 'value'
             ? variableValueListView(key)
             : SingleChildScrollView(
-                child: indicatorWidget(context, _formFieldKey, key),
+                child: indicatorWidget(context, formFieldKey, key),
               );
       },
     );
@@ -122,7 +122,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
           stockScanEntity
               .criteria![widget.index].variable![key]['values'][index]
               .toString(),
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       separatorBuilder: (context, index) => const DottedDivider(),
@@ -130,7 +130,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
   }
 
   Widget indicatorWidget(
-      BuildContext context, GlobalKey<FormState> _formFieldKey, String key) {
+      BuildContext context, GlobalKey<FormState> formFieldKey, String key) {
     return Container(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -142,7 +142,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
       // height: 150,
       width: double.infinity,
       child: Form(
-        key: _formFieldKey,
+        key: formFieldKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -162,7 +162,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formFieldKey.currentState!.validate()) {
+                  if (formFieldKey.currentState!.validate()) {
                     saveIndicatorData(key);
                   }
                 },
@@ -190,6 +190,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
             }
             return null;
           }
+          return null;
         },
         decoration: InputDecoration(
           hintText: value,

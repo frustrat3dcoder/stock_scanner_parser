@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stock_scan_parser/domain_layer/domain_layer.dart';
-import 'package:stock_scan_parser/presentation_layer/widgets/custom_seperator.dart';
 import 'package:stock_scan_parser/presentation_layer/widgets/custom_stock_parameter_tile.dart';
 import 'package:stock_scan_parser/utilities/utilities.dart';
 
