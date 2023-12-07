@@ -111,7 +111,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
       backgroundColor: const Color(0xff232323),
       builder: (context) {
         return stockScanEntity.criteria![widget.index].variable![key]['type'] ==
-                StockCriteriaEnum.value
+                StockCriteriaEnum.value.name
             ? variableValueListView(key)
             : SingleChildScrollView(
                 child: indicatorWidget(context, formFieldKey, key),
