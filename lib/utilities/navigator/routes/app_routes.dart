@@ -1,4 +1,3 @@
-import 'package:stock_scan_parser/domain_layer/domain_layer.dart';
 import 'package:stock_scan_parser/presentation_layer/screens.dart';
 import 'routes_name.dart';
 import 'package:flutter/material.dart';
