@@ -18,7 +18,7 @@ class StockScanModel extends StockScanEntity with EquatableMixin {
         color: json['color'] as String?,
         criteria: (json['criteria'] as List?)
             ?.map((dynamic e) =>
-                CriteriaEntity.fromJson(e as Map<String, dynamic>))
+                CriteriaModel.fromJson(e as Map<String, dynamic>))
             .toList());
   }
 
@@ -30,13 +30,17 @@ class CriteriaModel extends CriteriaEntity with EquatableMixin {
   const CriteriaModel({
     super.type,
     super.text,
+    super.variable,
   });
 
   factory CriteriaModel.fromJson(Map<String, dynamic> json) {
     return CriteriaModel(
-        type: json['type'] as String?, text: json['text'] as String?);
+      type: json['type'] as String?,
+      text: json['text'] as String?,
+      variable: json['variable'] as Map<String, dynamic>? ?? {},
+    );
   }
 
   @override
-  List<Object?> get props => [type, text];
+  List<Object?> get props => [type, text, variable];
 }

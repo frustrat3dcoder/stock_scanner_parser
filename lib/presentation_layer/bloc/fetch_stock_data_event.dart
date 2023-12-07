@@ -6,3 +6,5 @@ sealed class FetchStockDataEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FetchStockScanData extends FetchStockDataEvent {}

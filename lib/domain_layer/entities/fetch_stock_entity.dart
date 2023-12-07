@@ -40,17 +40,17 @@ class StockScanEntity extends Equatable {
 class CriteriaEntity extends Equatable {
   final String? type;
   final String? text;
+  final Map<String, dynamic>? variable;
 
-  const CriteriaEntity({
-    this.type,
-    this.text,
-  });
+  const CriteriaEntity({this.type, this.text, this.variable});
 
   CriteriaEntity.fromJson(Map<String, dynamic> json)
       : type = json['type'] as String?,
+        variable = json['variable'] as Map<String, dynamic>? ?? {},
         text = json['text'] as String?;
 
-  Map<String, dynamic> toJson() => {'type': type, 'text': text};
+  Map<String, dynamic> toJson() =>
+      {'type': type, 'text': text, 'variable': 'variable'};
 
   @override
   List<Object?> get props => [type, text];

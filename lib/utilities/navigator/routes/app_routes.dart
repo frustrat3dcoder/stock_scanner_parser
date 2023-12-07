@@ -1,3 +1,4 @@
+import 'package:stock_scan_parser/domain_layer/domain_layer.dart';
 import 'package:stock_scan_parser/presentation_layer/screens.dart';
 import 'routes_name.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,15 @@ class Routes {
       case RoutesName.stockScanHome:
         return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const StockListScreen());
+                const StockListPageWrapperProvider());
 
       case RoutesName.stockDetailTile:
+        final args = settings.arguments as Map<String, dynamic>;
         return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const StockDetailScreen());
+                StockDetailScreen(
+                  stockScanEntity: args['stockScanEntity'],
+                ));
 
       default:
         throw Error();

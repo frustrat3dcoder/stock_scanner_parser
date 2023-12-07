@@ -7,9 +7,7 @@ class FetchStockScanUseCase {
     required FetchStockScanRepo stockScanRepo,
   }) : _stockScanRepo = stockScanRepo;
 
-  Future<Either<dynamic, dynamic>> fetchStockScan() async {
-    final result = await _stockScanRepo.fetchStockScan();
-
-    return result;
+  Future<Either<Failure, List<StockScanEntity>>> fetchStockScan() async {
+    return await _stockScanRepo.fetchStockScan();
   }
 }
