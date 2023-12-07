@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_scan_parser/domain_layer/domain_layer.dart';
+import 'package:stock_scan_parser/utilities/utilities.dart';
 
 import 'custom_seperator.dart';
 
@@ -33,45 +34,53 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
     super.initState();
   }
 
-  saveIndicatorData(String key) {
+  void saveIndicatorData(String key) {
+    // index to separate or replace it within stringSpanList
     int keyIndex = stringSpanList.indexWhere((element) => element == key);
 
-    if (keyIndex != -1) {
-      setState(() {
-        stringSpanList[keyIndex] = "\$${_textEditingController.text}";
-
-        stockScanEntity.criteria![widget.index].variable![key]
-            ['default_value'] = _textEditingController.text;
-        stockScanEntity.criteria![widget.index].variable!.addAll({
-          "\$${_textEditingController.text}":
-              stockScanEntity.criteria![widget.index].variable![key]
-        });
-      });
-    }
-    _textEditingController.clear();
-    Navigator.pop(context);
-  }
-
-  updateVariableValueType(String key, int index) {
-    int keyIndex = stringSpanList.indexWhere((element) => element == key);
-
+    //keyIndex -1 means it doesn't exist in list
     if (keyIndex != -1) {
       setState(() {
         stringSpanList[keyIndex] =
-            "\$${stockScanEntity.criteria![widget.index].variable![key]['values'][index]}";
+            "\$${_textEditingController.text}"; // replacing curentValue within List<String>
+
+        stockScanEntity.criteria![widget.index].variable![key]
+                ['default_value'] =
+            _textEditingController
+                .text; // changing the value within variable so it can be save for future reference
+        stockScanEntity.criteria![widget.index].variable!.addAll({
+          "\$${_textEditingController.text}":
+              stockScanEntity.criteria![widget.index].variable![key]
+        }); // adding new variable so that we can highlight specific richText
+      });
+    }
+    _textEditingController.clear(); // clearing default text controller
+    Navigator.pop(context); // closing bottomsheet
+  }
+
+  void updateVariableValueType(String key, int index) {
+    int keyIndex = stringSpanList.indexWhere((element) => element == key);
+
+    //keyIndex -1 means it doesn't exist in list
+    if (keyIndex != -1) {
+      setState(() {
+        stringSpanList[keyIndex] =
+            "\$${stockScanEntity.criteria![widget.index].variable![key]['values'][index]}"; // changing the value within variable so it can be save for future reference
         final value = stockScanEntity.criteria![widget.index].variable![key];
 
         stockScanEntity.criteria![widget.index].variable!.addAll({
           "\$${stockScanEntity.criteria![widget.index].variable![key]['values'][index]}":
               value
-        });
+        }); // adding new variable so that we can highlight specific richText
       });
-      Navigator.pop(context);
+      Navigator.pop(context); // closing bottomsheet
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // This is the core logic where StringSpanList and variable key value is
+    // responsible for showing widget in highlighted so that it can be edited
     return Row(
       children: stringSpanList
           .map((e) =>
@@ -102,7 +111,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
       backgroundColor: const Color(0xff232323),
       builder: (context) {
         return stockScanEntity.criteria![widget.index].variable![key]['type'] ==
-                'value'
+                StockCriteriaEnum.value
             ? variableValueListView(key)
             : SingleChildScrollView(
                 child: indicatorWidget(context, formFieldKey, key),
@@ -178,6 +187,7 @@ class _CustomParameterTileState extends State<CustomParameterTile> {
 
   buildTextFormField(
       {required String value, required int min, required int max}) {
+    _textEditingController.text = value;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(

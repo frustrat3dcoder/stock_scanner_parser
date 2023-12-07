@@ -1,0 +1,1 @@
+enum StockCriteriaEnum { indicator, value }
