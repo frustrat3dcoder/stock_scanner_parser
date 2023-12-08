@@ -2,12 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:stock_scan_parser/domain_layer/domain_layer.dart';
 
 class FetchStockScanUseCase {
-  final FetchStockScanRepo _stockScanRepo;
+  final FetchStockScanRepo stockScanRepo;
   FetchStockScanUseCase({
-    required FetchStockScanRepo stockScanRepo,
-  }) : _stockScanRepo = stockScanRepo;
+    required this.stockScanRepo,
+  });
 
   Future<Either<Failure, List<StockScanEntity>>> fetchStockScan() async {
-    return await _stockScanRepo.fetchStockScan();
+    return await stockScanRepo.fetchStockScan();
   }
 }

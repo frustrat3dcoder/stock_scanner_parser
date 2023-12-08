@@ -10,13 +10,47 @@ import 'fetch_stock_scan_repo_impl_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<FetchStockDataRemoteSource>()])
 void main() {
   group('FetchStockScanRepoImpl', () {
+    group('should return List<StockScanEntity>', () {
+      test('when FetchStockDataRemoteSource returns a List<StockScanEntity>',
+          () async {
+        final mockStockScanDataImpl = MockFetchStockDataRemoteSource();
+        final fethcStockUseCaseUnderTest =
+            FetchStockScanRepoImpl(fetchStockDataSource: mockStockScanDataImpl);
+        final expectedResult = [
+          const StockScanEntity(
+            color: 'green',
+            id: 1,
+            name: 'Top gainers',
+            tag: 'Intraday Bullish',
+            criteria: [
+              CriteriaEntity(
+                  type: 'plain_text',
+                  text: 'Sort - %price change in descending order')
+            ],
+          )
+        ];
+        when(mockStockScanDataImpl.fetchStockScan())
+            .thenAnswer((realInvocation) => Future.value(expectedResult));
+
+        final result = await fethcStockUseCaseUnderTest.fetchStockScan();
+
+        expect(result.isLeft(), false);
+        expect(result.isRight(), true);
+        expect(result, Right<Failure, List<StockScanEntity>>(expectedResult));
+        verify(mockStockScanDataImpl.fetchStockScan()).called(
+            1); // when you want to check if a method was not call use verifyNever(mock.methodCall) instead .called(0)
+        verifyNoMoreInteractions(mockStockScanDataImpl);
+      });
+    });
+
     group('should retrun left with', () {
       test('a ServerFailure when a ServerException occurs', () async {
-        final mockAdviceRemoteDatasource = MockFetchStockDataRemoteSource();
+        final mockFetchStockScanRemoteDataSource =
+            MockFetchStockDataRemoteSource();
         final fetchStockScanRepoImplUnderTest = FetchStockScanRepoImpl(
-            fetchStockDataSource: mockAdviceRemoteDatasource);
+            fetchStockDataSource: mockFetchStockScanRemoteDataSource);
 
-        when(mockAdviceRemoteDatasource.fetchStockScan())
+        when(mockFetchStockScanRemoteDataSource.fetchStockScan())
             .thenThrow(ServerException());
 
         final result = await fetchStockScanRepoImplUnderTest.fetchStockScan();
@@ -29,11 +63,12 @@ void main() {
       });
 
       test('a GeneralFailure on all other Exceptions', () async {
-        final mockAdviceRemoteDatasource = MockFetchStockDataRemoteSource();
+        final mockFetchStockScanRemoteDataSource =
+            MockFetchStockDataRemoteSource();
         final fetchStockScanRepoImplUnderTest = FetchStockScanRepoImpl(
-            fetchStockDataSource: mockAdviceRemoteDatasource);
+            fetchStockDataSource: mockFetchStockScanRemoteDataSource);
 
-        when(mockAdviceRemoteDatasource.fetchStockScan())
+        when(mockFetchStockScanRemoteDataSource.fetchStockScan())
             .thenThrow(ServerException());
 
         final result = await fetchStockScanRepoImplUnderTest.fetchStockScan();
